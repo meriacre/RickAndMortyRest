@@ -1,6 +1,6 @@
 package md.merit.rickandmortyrest.models.characters
 
-data class Model(
+data class CharacterModel(
     val info: Info,
     val results: List<Result>
 )

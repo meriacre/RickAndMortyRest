@@ -1,11 +1,11 @@
 package md.merit.rickandmortyrest.models.episodes
 
 data class Result(
-    val air_date: String? = "",
-    val characters: List<String>? = null,
-    val created: String? = "",
-    val episode: String? = "",
-    var id: Int? = 0,
-    var name: String? = "",
-    var url: String? = ""
+    val air_date: String,
+    val characters: List<String>,
+    val created: String,
+    val episode: String,
+    val id: Int,
+    val name: String,
+    val url: String
 )

@@ -1,4 +1,4 @@
-package md.merit.rickandmortyrest.adapters
+package md.merit.rickandmortyrest.ui.main
 
 import android.content.Context
 import android.content.Intent
@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.lo_item.view.*
 import md.merit.rickandmortyrest.R
-import md.merit.rickandmortyrest.models.characters.Character
-import md.merit.rickandmortyrest.ui.DisplayActivity
+import md.merit.rickandmortyrest.models.characters.Result
+import md.merit.rickandmortyrest.ui.info.DisplayActivity
 
 
-class MainAdapter(var items: ArrayList<Character>, var context: Context) :
+class MainAdapter(var items: ArrayList<Result>, var context: Context) :
     RecyclerView.Adapter<MainAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -31,8 +31,8 @@ class MainAdapter(var items: ArrayList<Character>, var context: Context) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val character = items[position]
         holder.characterName.text = character.name
-        holder.episode.text = character.episode
-        holder.location.text = character.location
+        holder.episode.text = character.location.name
+        holder.location.text = character.location.name
 
         Picasso.with(context)
             .load(
@@ -43,18 +43,18 @@ class MainAdapter(var items: ArrayList<Character>, var context: Context) :
 
         holder.itemView.setOnClickListener {
             val gItem = items[position]
-            var gId = gItem.id
-            var gName = gItem.name
-            var gEpisode = gItem.episode
-            var gLocation = gItem.location
-            var gStatus = gItem.status
-            var gImage = gItem.image
+            val gId = gItem.id
+            val gName = gItem.name
+            val gLocation = gItem.location.name
+            val gEpisode = gItem.episode[0]
+            val gStatus = gItem.status
+            val gImage = gItem.image
 
             val intent = Intent(context, DisplayActivity::class.java)
             intent.putExtra("iId", gId)
             intent.putExtra("iName", gName)
-            intent.putExtra("iEpisode", gEpisode)
             intent.putExtra("iLocation", gLocation)
+            intent.putExtra("iEpisode", gEpisode)
             intent.putExtra("iStatus", gStatus)
             intent.putExtra("iImage", gImage)
 
@@ -65,7 +65,7 @@ class MainAdapter(var items: ArrayList<Character>, var context: Context) :
 
     override fun getItemCount(): Int = items.size
 
-    fun updateData(persModels: ArrayList<Character>) {
+    fun updateData(persModels: ArrayList<Result>) {
         this.items = persModels
         //      notifyDataSetChanged()
         notifyItemInserted(items.size - 1)
